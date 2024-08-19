@@ -1,9 +1,10 @@
 import { Metadata } from 'next';
  
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'),
   title: 'Home - MAD NEXTJS',
   description: 'App for Learning NextJS',
-  authors: [{name: 'Ahmad M', url: "http://localhost:300"}],
+  authors: [{name: 'Ahmad M', url: "http://localhost:3000"}],
   icons: {
     icon: './icon.png'
   },

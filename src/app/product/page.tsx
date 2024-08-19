@@ -1,21 +1,26 @@
-import { getData } from "@/services/products";
+// import { getData } from "@/services/products";
+"use client"
 import Link from "next/link";
 import Image from "next/image";
+import useSWR from "swr";
 
 type ProductPageProps = { params: { slug: string[] } }
-
-export default async function ProductPage(props: ProductPageProps) {
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
+export default function ProductPage(props: ProductPageProps) {
     const { params } = props
     console.log(params);
-    const products = await getData("http://localhost:3000/api/product")
-    console.log(products);
+    const {data} = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/product`, fetcher)
+    // const products = await getData(`${process.env.NEXT_PUBLIC_API_URL}/api/product`)
+    console.log(data);
 
-
+    const products = {
+        data: data?.data,
+    }
     return (
         <>
             <div className="grid grid-cols-4 mt-5 place-items-center">
                 {/* <div>{params.slug ? "Detail Product Page" : "Product Page"}</div> */}
-                {products.data.length > 0 && products.data.map((product: any) => (
+                {products.data?.length > 0 && products.data?.map((product: any) => (
                     <Link href={`/product/detail/${product.id}`} className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 my-5" key={product.id}>
                         <Image className="p-8 rounded-t-lg object-cover w-full h-96" width={500} height={500} src={product.image} alt="product image" />
                         <div className="px-5 pb-5">

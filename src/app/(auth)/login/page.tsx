@@ -86,7 +86,7 @@ export default function LoginPage() {
                     <Link href='/register'>
                         <p className="mt-4 text-center">Register</p>
                     </Link>
-                    <button type="button" className="mt-4 w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide" onClick={() => signIn('google', {callbackUrl: 'http://localhost:3000/dashboard', redirect: false})}>Login with Google</button>
+                    <button type="button" className="mt-4 w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide" onClick={() => signIn('google', {callbackUrl: `${process.env.NEXT_PUBLIC_API_URL}/dashboard`, redirect: false})}>Login with Google</button>
                 </form>
             </div>
         </div>
